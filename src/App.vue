@@ -17,16 +17,10 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
-          <router-link
-            to="/"
-            class="nav-link active"
-            aria-current="page"
-            href="#"
+          <router-link to="/" class="nav-link active" aria-current="page"
             >Mostrar</router-link
           >
-          <router-link to="/create" class="nav-link" href="#"
-            >Crear</router-link
-          >
+          <router-link to="/create" class="nav-link">Crear</router-link>
         </div>
       </div>
     </div>
