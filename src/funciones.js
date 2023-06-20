@@ -14,7 +14,7 @@ export function show_alerta (mensaje, icono, foco=''){
 }
 
 export function confirmar(id, nombre){
-    var url = 'https://jsonplaceholder.typicode.com/users/'+id;
+    var url = 'http://localhost:3001/usuarios/'+id;
     const SwalWithBootstrapButton = Swal.mixin({
         customClass: {confirmButton: 'btn btn-success me-3', cancelButton: 'btn btn-danger'},
         buttonsStyling: false
@@ -35,5 +35,28 @@ export function confirmar(id, nombre){
                 show_alerta('operacion cancelada', 'info')
             }
         })
+}
 
+export function enviarSolicitud(metodo, parametros, url, mensaje) {
+    axios({ method: metodo, url: url, data: parametros })
+        .then(function(respuesta) {
+            var status = respuesta.data[0]['status'];
+            if (status === 'success') {
+                show_alerta(mensaje, status);
+                window.setTimeout(function(){
+                    window.location.href='/';
+                }, 1000);
+                console.log("Usuario eliminado");
+            }
+            else{
+                var listado = '';
+                var errores = respuesta.data[1]['errors'];
+                Object.keys(errores).forEach(
+                    key => listado += errores[key][0]+'.'
+                )
+                show_alerta(listado, 'errores')
+            }
+        }).catch(function(error){
+            show_alerta('error en la solicitud'+ error)
+        })
 }
